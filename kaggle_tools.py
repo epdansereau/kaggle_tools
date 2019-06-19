@@ -178,7 +178,9 @@ class Trainer:
 trainer = Trainer()
 trainer.alarm()
 
-# # 
+# #  Examples of scripts:
+
+# # Copying and renaming a kernel:
 # copies = trainer.copy('karlpoppery/bertcorr1CPV2',1)
 # trainer.rename([copies[1]],['karlpoppery/gpt2v001'])
 
