@@ -10,12 +10,10 @@ from io import StringIO
 import shutil
 
 # replace this by your username:
-USER = 'YourUserName'
 
 class Trainer:
-    def __init__(self,kernels):
+    def __init__(self,kernels = ['']):
         self.kernels = kernels
-        self.name = USER
         self.check_status_interval = 60*5
         self.is_running = []
         self.projects_directory = Path.home() / 'kaggle-projects'
@@ -51,7 +49,8 @@ class Trainer:
             try:
                 status = str(subprocess.check_output('kaggle kernels status {}'.format(kernel).split(' ')))
             except subprocess.CalledProcessError:
-                pass
+                #This seems to happen when a kernel hasn't been commited yet
+                continue
             if status.split('"')[1] == 'running':
                 self.is_running.append(kernel)
             elif status.split('"')[1] in ['complete','error']:
@@ -174,4 +173,12 @@ class Trainer:
         '''TO DO'''
         for kernel in kernels:
             pass
+
+# Simple alarm:
+trainer = Trainer()
+trainer.alarm()
+
+# # 
+# copies = trainer.copy('karlpoppery/bertcorr1CPV2',1)
+# trainer.rename([copies[1]],['karlpoppery/gpt2v001'])
 
